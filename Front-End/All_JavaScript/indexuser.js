@@ -187,8 +187,9 @@
 // getbook();
 // getuser();
 // var userId = localStorage.getItem("userId");
+var n = localStorage.getItem("userId");
 
-const url4 = `http://localhost:42480/api/User/byIDUser/15`;
+const url4 = `http://localhost:42480/api/User/byIDUser/${n}`;
 
 async function getuser() {
   var response = await fetch(url4);
