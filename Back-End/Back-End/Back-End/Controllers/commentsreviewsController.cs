@@ -37,7 +37,6 @@ namespace Back_End.Controllers
         public IActionResult GetTopRatedCommentsReviews()
         {
             var CommentsReview = _myDbContext.CommentsReviews
-                .OrderByDescending(a => a.Rating) 
                 .Take(6) 
                 .ToList();
 

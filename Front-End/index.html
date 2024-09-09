@@ -2,7 +2,35 @@
 <html lang="en">
   <!-- Mirrored from bookland.dexignzone.com/xhtml/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 05 Sep 2024 18:27:45 GMT -->
   <head>
+    <!-- SweetAlert2 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
+   #results {
+    display: none; /* إخفاء القائمة في البداية */
+    position: absolute;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+  }
+
+  .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .dropdown-item:hover {
+    background-color: #f0f0f0;
+  }
       /* For handling book card content */
       .books-card {
         background-color: #fff; /* Card background */
@@ -34,8 +62,11 @@
         box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.2);
       }
     </style>
+    <script src="/Front-End/All_JavaScript/newLast.js"></script>
+    <script src="/Front-End/All_JavaScript/email.js"></script>
     <script src="/Front-End/All_JavaScript/indexCategories.js"></script>
-    <script src="/Front-End/All_JavaScript/indexWishlist.js"></script>
+    <script src="/Front-End/All_JavaScript/indexSearch.js"></script>
+    <script src="/Front-End/All_JavaScript/Testimonials.js"></script>
     <script src="/Front-End/All_JavaScript/indexCart.js"></script>
     <script src="/Front-End/All_JavaScript/indexuser.js"></script>
     <script src="/Front-End/All_JavaScript/indexBook.js"></script>
@@ -317,15 +348,21 @@
                   <div class="input-group">
                     <input
                       type="text"
+                      id="bookSearch"
                       class="form-control"
                       aria-label="Text input with dropdown button"
                       placeholder="Search Books Here"
+                      oninput="searchBook()"  
                     />
                     <button class="btn" type="button">
                       <i class="flaticon-loupe"></i>
                     </button>
                   </div>
+                
+                  <!-- قائمة منسدلة لعرض النتائج -->
+                  <ul id="results" class="dropdown-menu"></ul>
                 </form>
+
                 <ul class="nav navbar-nav">
                   <li class="sub-menu-down">
                     <a href="javascript:void(0);"><span>Home</span></a>
@@ -766,7 +803,7 @@
         <!-- Book Sale End -->
 
         <!-- Feature Product -->
-        <section class="content-inner-1 bg-grey reccomend">
+        <!-- <section class="content-inner-1 bg-grey reccomend">
           <div class="container">
             <div class="section-head text-center">
               <div class="circle style-1"></div>
@@ -779,7 +816,7 @@
             </div>
           </div>
           <div class="container" id="featured_rating"></div>
-        </section>
+        </section> -->
         <!-- Feature Product End -->
 
         <!-- Special Offer End -->
@@ -809,7 +846,7 @@
             </div>
           </div>
           <div class="swiper-container testimonial-swiper">
-            <div class="swiper-wrapper">
+            <div class="swiper-wrapper" id="topRatedComments">
               <div class="swiper-slide">
                 <div class="testimonial-1 wow fadeInUp" data-wow-delay="0.1s">
                   <div class="testimonial-info">
@@ -819,146 +856,6 @@
                       <li><i class="flaticon-star text-yellow"></i></li>
                       <li><i class="flaticon-star text-yellow"></i></li>
                       <li><i class="flaticon-star text-yellow"></i></li>
-                    </ul>
-                    <div class="testimonial-text">
-                      <p>
-                        Very impresive store. Your book made studying for the
-                        ABC certification exams a breeze. Thank you very much
-                      </p>
-                    </div>
-                    <div class="testimonial-detail">
-                      <div class="testimonial-pic">
-                        <img src="images/testimonial/testimonial1.jpg" alt="" />
-                      </div>
-                      <div class="info-right">
-                        <h6 class="testimonial-name">Jason Huang</h6>
-                        <span class="testimonial-position">Book Lovers</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="testimonial-1 wow fadeInUp" data-wow-delay="0.2s">
-                  <div class="testimonial-info">
-                    <ul class="dz-rating">
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-muted"></i></li>
-                    </ul>
-                    <div class="testimonial-text">
-                      <p>
-                        Very impresive store. Your book made studying for the
-                        ABC certification exams a breeze. Thank you very much
-                      </p>
-                    </div>
-                    <div class="testimonial-detail">
-                      <div class="testimonial-pic radius">
-                        <img src="images/testimonial/testimonial2.jpg" alt="" />
-                      </div>
-                      <div>
-                        <h6 class="testimonial-name">Miranda Lee</h6>
-                        <span class="testimonial-position">Book Lovers</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="testimonial-1 wow fadeInUp" data-wow-delay="0.3s">
-                  <div class="testimonial-info">
-                    <ul class="dz-rating">
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-muted"></i></li>
-                      <li><i class="flaticon-star text-muted"></i></li>
-                    </ul>
-                    <div class="testimonial-text">
-                      <p>
-                        Very impresive store. Your book made studying for the
-                        ABC certification exams a breeze. Thank you very much
-                      </p>
-                    </div>
-                    <div class="testimonial-detail">
-                      <div class="testimonial-pic radius">
-                        <img src="images/testimonial/testimonial3.jpg" alt="" />
-                      </div>
-                      <div>
-                        <h6 class="testimonial-name">Steve Henry</h6>
-                        <span class="testimonial-position">Book Lovers</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="testimonial-1 wow fadeInUp" data-wow-delay="0.4s">
-                  <div class="testimonial-info">
-                    <ul class="dz-rating">
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-muted"></i></li>
-                    </ul>
-                    <div class="testimonial-text">
-                      <p>
-                        Thank you for filling a niche at an affordable price.
-                        Your book was just what I was looking for. Thanks again
-                      </p>
-                    </div>
-                    <div class="testimonial-detail">
-                      <div class="testimonial-pic radius">
-                        <img src="images/testimonial/testimonial4.jpg" alt="" />
-                      </div>
-                      <div>
-                        <h6 class="testimonial-name">Angela Moss</h6>
-                        <span class="testimonial-position">Book Lovers</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="testimonial-1 wow fadeInUp" data-wow-delay="0.5s">
-                  <div class="testimonial-info">
-                    <ul class="dz-rating">
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-muted"></i></li>
-                    </ul>
-                    <div class="testimonial-text">
-                      <p>
-                        Very impresive store. Your book made studying for the
-                        ABC certification exams a breeze. Thank you very much
-                      </p>
-                    </div>
-                    <div class="testimonial-detail">
-                      <div class="testimonial-pic radius">
-                        <img src="images/testimonial/testimonial2.jpg" alt="" />
-                      </div>
-                      <div>
-                        <h6 class="testimonial-name">Miranda Lee</h6>
-                        <span class="testimonial-position">Book Lovers</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="testimonial-1 wow fadeInUp" data-wow-delay="0.6s">
-                  <div class="testimonial-info">
-                    <ul class="dz-rating">
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-yellow"></i></li>
-                      <li><i class="flaticon-star text-muted"></i></li>
-                      <li><i class="flaticon-star text-muted"></i></li>
                     </ul>
                     <div class="testimonial-text">
                       <p>
@@ -994,134 +891,9 @@
               </p>
             </div>
             <div class="swiper-container blog-swiper">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <div
-                    class="dz-blog style-1 bg-white m-b30 wow fadeInUp"
-                    data-wow-delay="0.1s"
-                  >
-                    <div class="dz-media">
-                      <a href="blog-detail.html"
-                        ><img src="images/blog/grid/blog4.jpg" alt="/"
-                      /></a>
-                    </div>
-                    <div class="dz-info p-3">
-                      <h6 class="dz-title">
-                        <a href="blog-detail.html"
-                          >Benefits of reading: Smart, Diligent, Happy,
-                          Intelligent</a
-                        >
-                      </h6>
-                      <p class="m-b0">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing do
-                        eiusmod tempor
-                      </p>
-                      <div class="dz-meta meta-bottom mt-3 pt-3">
-                        <ul class="">
-                          <li class="post-date">
-                            <i class="far fa-calendar fa-fw m-r10"></i>24 March,
-                            2022
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div
-                    class="dz-blog style-1 bg-white m-b30 wow fadeInUp"
-                    data-wow-delay="0.2s"
-                  >
-                    <div class="dz-media">
-                      <a href="blog-detail.html"
-                        ><img src="images/blog/grid/blog3.jpg" alt="/"
-                      /></a>
-                    </div>
-                    <div class="dz-info p-3">
-                      <h6 class="dz-title">
-                        <a href="blog-detail.html"
-                          >10 Things you must know to improve your reading
-                          skills</a
-                        >
-                      </h6>
-                      <p class="m-b0">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing do
-                        eiusmod tempor
-                      </p>
-                      <div class="dz-meta meta-bottom mt-3 pt-3">
-                        <ul class="">
-                          <li class="post-date">
-                            <i class="far fa-calendar fa-fw m-r10"></i>18 July,
-                            2022
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div
-                    class="dz-blog style-1 bg-white m-b30 wow fadeInUp"
-                    data-wow-delay="0.3s"
-                  >
-                    <div class="dz-media">
-                      <a href="blog-detail.html"
-                        ><img src="images/blog/grid/blog2.jpg" alt="/"
-                      /></a>
-                    </div>
-                    <div class="dz-info p-3">
-                      <h6 class="dz-title">
-                        <a href="blog-detail.html"
-                          >Benefits of reading: Smart, Diligent, Happy,
-                          Intelligent</a
-                        >
-                      </h6>
-                      <p class="m-b0">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing do
-                        eiusmod tempor
-                      </p>
-                      <div class="dz-meta meta-bottom mt-3 pt-3">
-                        <ul class="">
-                          <li class="post-date">
-                            <i class="far fa-calendar fa-fw m-r10"></i>7 June,
-                            2022
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div
-                    class="dz-blog style-1 bg-white m-b30 wow fadeInUp"
-                    data-wow-delay="0.4s"
-                  >
-                    <div class="dz-media">
-                      <a href="blog-detail.html"
-                        ><img src="images/blog/grid/blog1.jpg" alt="/"
-                      /></a>
-                    </div>
-                    <div class="dz-info p-3">
-                      <h6 class="dz-title">
-                        <a href="blog-detail.html"
-                          >We Must know why reading is important for
-                          children?</a
-                        >
-                      </h6>
-                      <p class="m-b0">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing do
-                        eiusmod tempor
-                      </p>
-                      <div class="dz-meta meta-bottom mt-3 pt-3">
-                        <ul class="">
-                          <li class="post-date">
-                            <i class="far fa-calendar fa-fw m-r10"></i>30 May,
-                            2022
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+              <div class="swiper-wrapper" id="Latest">
+               
+                 
                 </div>
               </div>
             </div>
@@ -1221,20 +993,17 @@
                   class="col-xl-5 col-lg-6 wow fadeInUp"
                   data-wow-delay="0.2s"
                 >
-                  <form
-                    class="dzSubscribe style-1"
-                    action="https://bookland.dexignzone.com/xhtml/script/mailchamp.php"
-                    method="post"
-                  >
+                  <form id="newsletterForm" method="post">
                     <div class="dzSubscribeMsg"></div>
                     <div class="form-group">
                       <div class="input-group mb-0">
                         <input
-                          name="dzEmail"
+                          name="email"
                           required="required"
                           type="email"
                           class="form-control bg-transparent text-white"
                           placeholder="Your Email Address"
+                          id="email"
                         />
                         <div class="input-group-addon">
                           <button
@@ -1242,7 +1011,9 @@
                             value="Submit"
                             type="submit"
                             class="btn btn-primary btnhover"
+                            onclick="submit()"
                           >
+                            <p id="responseMessage"></p>
                             <span>SUBSCRIBE</span>
                             <i class="fa-solid fa-paper-plane"></i>
                           </button>
@@ -1269,49 +1040,8 @@
               >
               <div class="toggle-items row">
                 <div class="footer-col-book">
-                  <ul>
-                    <li><a href="books-grid-view.html">Architecture</a></li>
-                    <li><a href="books-grid-view.html">Art</a></li>
-                    <li><a href="books-grid-view.html">Action</a></li>
-                    <li><a href="books-grid-view.html">Biography</a></li>
-                    <li>
-                      <a href="books-grid-view.html">Body, Mind & Spirit</a>
-                    </li>
-                    <li>
-                      <a href="books-grid-view.html">Business & Economics</a>
-                    </li>
-                    <li><a href="books-grid-view.html">Children Fiction</a></li>
-                    <li>
-                      <a href="books-grid-view.html">Children Non-Fiction</a>
-                    </li>
-                    <li>
-                      <a href="books-grid-view.html">Comics & Graphics</a>
-                    </li>
-                    <li><a href="books-grid-view.html">Cooking</a></li>
-                    <li><a href="books-grid-view.html">Crafts & Hobbies</a></li>
-                    <li><a href="books-grid-view.html">Design</a></li>
-                    <li><a href="books-grid-view.html">Drama</a></li>
-                    <li><a href="books-grid-view.html">Education</a></li>
-                    <li>
-                      <a href="books-grid-view.html">Family & Relationships</a>
-                    </li>
-                    <li><a href="books-grid-view.html">Fiction</a></li>
-                    <li><a href="books-grid-view.html">Foreign Language</a></li>
-                    <li><a href="books-grid-view.html">Games</a></li>
-                    <li><a href="books-grid-view.html">Gardening</a></li>
-                    <li><a href="books-grid-view.html">Health & Fitness</a></li>
-                    <li><a href="books-grid-view.html">History</a></li>
-                    <li><a href="books-grid-view.html">House & Home</a></li>
-                    <li><a href="books-grid-view.html">Humor</a></li>
-                    <li>
-                      <a href="books-grid-view.html">Literary Collections</a>
-                    </li>
-                    <li><a href="books-grid-view.html">Mathematics</a></li>
-                    <li><a href="books-grid-view.html">Medical</a></li>
-                    <li><a href="books-grid-view.html">Nature</a></li>
-                    <li><a href="books-grid-view.html">Performing Arts</a></li>
-                    <li><a href="books-grid-view.html">Pets</a></li>
-                    <li><a href="books-grid-view.html">Show others</a></li>
+                  <ul id="categories-list">
+                    <!-- سيتم هنا عرض الفئات بشكل ديناميكي -->
                   </ul>
                 </div>
               </div>
@@ -1497,15 +1227,12 @@
     <script src="js/dz.ajax.js"></script>
     <!-- AJAX -->
     <script src="js/custom.js"></script>
-
+    <script src="/Front-End/All_JavaScript/email.js"></script>
     <!-- CUSTOM JS -->
-    <script src="/Front-End/All_JavaScript/indexCategories.js"></script>
-    <script src="/Front-End/All_JavaScript/indexWishlist.js"></script>
-    <script src="/Front-End/All_JavaScript/indexCart.js"></script>
-    <script src="/Front-End/All_JavaScript/indexuser.js"></script>
-    <script src="/Front-End/All_JavaScript/indexBook.js"></script>
+    
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="/Front-End/All_JavaScript/book_card.js"></script>
-    <script src="/Front-End/All_JavaScript/book_sale.js"></script>
+
   </body>
 
   <!-- Mirrored from bookland.dexignzone.com/xhtml/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 05 Sep 2024 18:28:08 GMT -->

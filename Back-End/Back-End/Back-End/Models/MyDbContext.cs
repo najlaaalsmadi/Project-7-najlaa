@@ -31,7 +31,11 @@ public partial class MyDbContext : DbContext
 
     public virtual DbSet<Coupon> Coupons { get; set; }
 
+    public virtual DbSet<LatestNews> LatestNews { get; set; }
+
     public virtual DbSet<Library> Libraries { get; set; }
+
+    public virtual DbSet<Newsletter> Newsletters { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
 
@@ -254,6 +258,27 @@ public partial class MyDbContext : DbContext
                 .HasColumnName("status");
         });
 
+        modelBuilder.Entity<LatestNews>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__LatestNe__3213E83F734F3C92");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Description)
+                .HasColumnType("text")
+                .HasColumnName("description");
+            entity.Property(e => e.ImageUrl)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("image_url");
+            entity.Property(e => e.NewsType)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("news_type");
+            entity.Property(e => e.PublishedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("published_at");
+        });
+
         modelBuilder.Entity<Library>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__library__3213E83F3401021E");
@@ -277,6 +302,23 @@ public partial class MyDbContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__library__user_id__5AEE82B9");
+        });
+
+        modelBuilder.Entity<Newsletter>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__newslett__3213E83F4921ED48");
+
+            entity.ToTable("newsletter");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Email)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("email");
         });
 
         modelBuilder.Entity<Order>(entity =>

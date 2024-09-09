@@ -21,6 +21,20 @@ namespace Back_End.Controllers
             var User = _myDbContext.Users.ToList();
             return Ok(User);
         }
+        [HttpGet("byIDUserUser/{id}")]
+        public IActionResult GetUserUserById(int id)
+        {
+            var user = _myDbContext.Users
+                .Where(u => u.Id == id)
+                .Select(u => u.Name) // استخراج اسم الشخص فقط
+                .FirstOrDefault();
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+            return Ok(user); // إرجاع اسم الشخص فقط
+        }
 
         // Get category by ID
         [HttpGet("byIDUser/{id}")]

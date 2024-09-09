@@ -1,6 +1,7 @@
 ﻿using Back_End.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Back_End.Controllers
@@ -32,6 +33,17 @@ namespace Back_End.Controllers
             return Ok(randomBooks);
         }
 
+        [HttpGet("bynameBooksid/{id}")]
+        public IActionResult GetBookTitleById(int id)
+        {
+            var book = _myDbContext.Books.FirstOrDefault(a => a.Id == id);
+            if (book == null)
+            {
+                return NotFound("Book not found.");
+            }
+            return Ok(book.Title); // إرجاع اسم الكتاب فقط
+        }
+    
 
         [HttpGet("byIDBooks/{id}")]
         public IActionResult GetBooksById(int id)
@@ -63,28 +75,66 @@ namespace Back_End.Controllers
         [HttpGet("bySaleBooks")]
         public IActionResult GetBooksBySale()
         {
-            // جلب الكتب التي تحتوي على نسبة خصم أكبر من 0 وترتيبها عشوائيًا
             var Books = _myDbContext.Books
-                .Where(a => a.DiscountPercentage > 0) // جلب الكتب التي عليها خصم فقط
-                .OrderBy(b => Guid.NewGuid()) // ترتيب عشوائي
+                .Where(a => a.DiscountPercentage > 0) 
+                .OrderBy(b => Guid.NewGuid()) 
                 .ToList();
 
             if (Books == null || Books.Count == 0)
             {
-                return NotFound(); // إذا لم تكن هناك أي كتب عليها خصم
+                return NotFound(); 
             }
 
-            // تحديد عدد عشوائي بين 5 و 10
             Random random = new Random();
-            int count = random.Next(4, Math.Min(10, Books.Count) + 1); // اختيار العدد بين 5 و 10 أو عدد الكتب إذا كان أقل
+            int count = random.Next(4, Math.Min(10, Books.Count) + 1); 
 
-            // إرجاع عدد عشوائي من الكتب
             var randomBooks = Books.Take(count).ToList();
 
             return Ok(randomBooks);
         }
 
 
+        [HttpGet("categories/books")]
+        public async Task<IActionResult> GetBooksByCategories([FromQuery] List<int> categoryIds)
+        {
+            if (categoryIds == null || !categoryIds.Any())
+            {
+                return BadRequest("No categories specified.");
+            }
+
+            var books = await _myDbContext.Books
+                .Where(b => b.Categories.Any(c => categoryIds.Contains(c.Id)))
+                .Select(b => new
+                {
+                    b.Id,
+                    b.Title,
+                    b.Author,
+                    b.Publisher,
+                    b.YearPublished,
+                    b.Description,
+                    b.Price,
+                    b.DiscountPercentage,
+                    b.ImageUrl,
+                    b.Rating,
+                    CommentsCount = b.CommentsReviews.Count,
+                    Categories = b.Categories.Select(c => new { c.Id, c.Name }).ToList()
+                })
+                .ToListAsync();
+
+            return Ok(books);
+        }
+
+        // Optional: Get categories by IDs
+        [HttpGet("categories")]
+        public async Task<IActionResult> GetCategoriesByIds([FromQuery] List<int> categoryIds)
+        {
+            var categories = await _myDbContext.Categories
+                .Where(c => categoryIds.Contains(c.Id))
+                .Select(c => new { c.Id, c.Name })
+                .ToListAsync();
+
+            return Ok(categories);
+        }
 
 
         [HttpGet("bynameBooks/{name}")]

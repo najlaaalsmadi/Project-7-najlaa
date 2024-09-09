@@ -1,6 +1,5 @@
-// جلب عدد العناصر في السلة من الـ API
-const userId = 15; // تأكد من أن المعرف صحيح
-
+//  const userId= localStorage.getItem("userId");
+let userId = 15;
 // دالة لجلب عدد العناصر في السلة
 async function getcountcart() {
   const url3 = `http://localhost:42480/api/CartItem/cartItemCount/${userId}`;
@@ -51,19 +50,18 @@ async function getTotalPrice() {
 
     if (!response.ok) {
       console.error("Error fetching total price:", response.statusText);
-      return 0; // افتراضي إذا حدث خطأ
+      return 0;
     }
 
     const result = await response.json();
-    console.log("Total price response:", result); // للتحقق من الاستجابة
-    return result.totalPrice || 0; // تأكد من أن هناك خاصية totalPrice في البيانات
+    console.log("Total price response:", result);
+    return result.totalPrice || 0;
   } catch (error) {
     console.error("Error fetching total price:", error);
-    return 0; // افتراضي إذا حدث خطأ
+    return 0;
   }
 }
 
-// دالة لجلب العناصر الأعلى سعراً وعرضها
 async function getTopPrice() {
   try {
     const response = await fetch(url14);
@@ -74,7 +72,7 @@ async function getTopPrice() {
     }
     debugger;
     const result = await response.json(); // مجموعة الكتب
-    console.log("Top price items response:", result); // للتحقق من الاستجابة
+    console.log("Top price items response:", result);
     const booksContainer = document.getElementById("cart-list");
 
     // تفريغ المحتوى السابق
@@ -93,9 +91,11 @@ async function getTopPrice() {
           <li class="cart-item">
             <div class="media">
               <div class="media-left">
-                <a href="books-detail.html?id=${book.id}">
-                  <img alt="" class="media-object" src="${book.imageUrl}" />
-                </a>
+
+<img alt="${book.title}" class="media-object" src="${
+          book.userProfilePicture
+        }" />
+
               </div>
               <div class="media-body">
                 <h6 class="dz-title">
@@ -104,13 +104,7 @@ async function getTopPrice() {
                   }" class="media-heading">${book.title}</a>
                 </h6>
                 <span class="dz-price">$${book.price.toFixed(2)}</span>
-                
-                  <a href="books-detail.html?id=${book.id}">
-                  <img alt="" class="media-object" src="${book.imageUrl}" />
-                </a>
 
-
-                <span class="item-close">&times;</span>
               </div>
             </div>
           </li>
@@ -137,7 +131,6 @@ async function getTopPrice() {
     console.error("Error fetching top price books:", error);
   }
 }
-
 // تنفيذ الدوال
 getcountcart();
 getTopPrice();

@@ -36,15 +36,10 @@ namespace Back_End.Controllers
         public IActionResult GetCartTotalByCartId(int user_id)
         {
             var totalAmount = _myDbContext.CartItems
-                .Where(a => a.Cart.UserId == user_id)   
-                .Sum(a => a.Price * a.Quantity);   
+                .Where(a => a.Cart.UserId == user_id)
+                .Sum(a => a.Price * a.Quantity);
 
-            if (totalAmount == 0)
-            {
-                return NotFound("No items found for the specified cart ID or total is zero.");
-            }
-
-            return Ok(new { TotalAmount = totalAmount });
+            return Ok(new { TotalPrice = totalAmount });
         }
 
         [HttpGet("byIDCartItem3/{cart_id}")]
