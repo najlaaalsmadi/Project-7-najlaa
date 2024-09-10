@@ -24,12 +24,13 @@ async function getbook() {
       .map(
         (book) => `
                 <div class="swiper-slide">
-                    <div class="books-card style-1 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="dz-media">
-                            <img src="${
-                              book.imageUrl || "default-image.jpg"
-                            }" alt="${book.title || "No title available"}" />
-                        </div>
+                        <div class="books-card style-1 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="dz-media" style="width: 200px; height: 300px; overflow: hidden;">
+                        <img src="${book.imageUrl || "default-image.jpg"}" 
+                        alt="${book.title || "No title available"}" 
+                        style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+
                         <div class="dz-content">
                             <h4 class="title">${book.title || "Untitled"}</h4>
                             <span class="price">${
@@ -134,10 +135,10 @@ function addToCart1(bookId, format, price, imageUrl) {
 
   // Show confirmation message
   Swal.fire({
-    title: "تمت إضافة الكتاب إلى السلة!",
-    text: "تمت إضافة الكتاب بنجاح إلى سلتك.",
+    title: "The book has been added to the cart!",
+    text: "The book has been successfully added to your basket.",
     icon: "success",
-    confirmButtonText: "موافق",
+    confirmButtonText: "ok",
     confirmButtonColor: "#3085d6",
   });
 }

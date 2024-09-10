@@ -199,12 +199,16 @@
                     >
                       <div id="img"></div>
                       <div class="profile-info" id="profile1">
-                        <h6 class="title">Brian</h6>
-                        <span>info@gmail.com</span>
+                        <h6 class="m-0">Guest</h6>
+                        <span>Please log in to see your profile.</span>
                       </div>
                     </a>
                     <div class="dropdown-menu py-0 dropdown-menu-end">
-                      <div class="dropdown-header" id="profile2"></div>
+                      <div class="dropdown-header" id="profile2">
+
+                        <h6 class="m-0">Guest</h6>
+                        <span>Please log in to see your profile.</span>
+                      </div>
                       <div class="dropdown-body">
                         <a
                           href="my-profile.html"
@@ -284,23 +288,32 @@
             <div class="header-search-nav">
               <form class="header-item-search">
                 <div class="input-group search-input">
-                  <div class="default-select" id="Category"></div>
+                  <!-- <div class="default-select" id="Category">
+
+                  </div> -->
 
                   <input
-                    type="text"
-                    class="form-control"
-                    aria-label="Text input with dropdown button"
-                    placeholder="Search Books Here"
-                  />
-                  <button class="btn" type="button">
+  type="text"
+  class="form-control"
+  aria-label="Search Books Here"
+  placeholder="Search Books Here"
+  id="bookSearch"
+  oninput="searchBook()" 
+/>
+
+                  <button class="btn" type="button" id="searchButton">
                     <i class="flaticon-loupe"></i>
                   </button>
                 </div>
               </form>
+              <div id="results"></div>
+
             </div>
           </div>
         </div>
-        <!-- Main Header End -->
+
+        <!--
+          Main Header End -->
 
         <!-- Main Header -->
         <div class="sticky-header main-bar-wraper navbar-expand-lg">
@@ -345,24 +358,9 @@
                 <div class="logo-header logo-dark">
                   <a href="index.html"><img src="images/logo.png" alt="" /></a>
                 </div>
-                <form class="search-input">
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      id="bookSearch"
-                      class="form-control"
-                      aria-label="Text input with dropdown button"
-                      placeholder="Search Books Here"
-                      oninput="searchBook()"  
-                    />
-                    <button class="btn" type="button">
-                      <i class="flaticon-loupe"></i>
-                    </button>
-                  </div>
+             
                 
-                  <!-- قائمة منسدلة لعرض النتائج -->
-                  <ul id="results" class="dropdown-menu"></ul>
-                </form>
+                
 
                 <ul class="nav navbar-nav">
                   <li class="sub-menu-down">
@@ -503,10 +501,7 @@
                               </li>
                             </ul>
                             <p class="text mb-0" data-swiper-parallax="-40">
-                              It is a long established fact that a reader will
-                              be distracted by the readable content of a page
-                              when looking at its layout. The point of using
-                              Lorem Ipsum is that it has a more-or-less normal.
+                              “A reader lives a thousand lives before he dies. The man who never reads lives only one.” - George R.R. Martin, A Dance with Dragons
                             </p>
                             <div class="price" data-swiper-parallax="-50">
                               <span class="price-num">$17.2</span>
@@ -591,10 +586,7 @@
                               </li>
                             </ul>
                             <p class="text mb-0" data-swiper-parallax="-40">
-                              Lorem ipsum dolor sit amet, consectetur adipiscing
-                              elit, sed do eiusmod tempor incididunt ut labore
-                              et dolore magna aliqua. Ut enim ad minim veniam,
-                              quis nostrud exercitation ullamco laboris
+                              “A reader lives a thousand lives before he dies. The man who never reads lives only one.” - George R.R. Martin, A Dance with Dragons
                             </p>
                             <div class="price" data-swiper-parallax="-50">
                               <span class="price-num">$9.5</span>
@@ -784,23 +776,24 @@
         <!-- Book Sale -->
         <section class="content-inner-1">
           <div class="container">
-            <div class="section-head book-align">
-              <h2 class="title mb-0">Books on Sale</h2>
-              <div class="pagination-align style-1">
-                <div class="swiper-button-prev">
-                  <i class="fa-solid fa-angle-left"></i>
-                </div>
-                <div class="swiper-pagination-two"></div>
-                <div class="swiper-button-next">
-                  <i class="fa-solid fa-angle-right"></i>
-                </div>
+              <div class="section-head book-align">
+                  <h2 class="title mb-0">Books on Sale</h2>
+                  <div class="pagination-align style-1">
+                      <div class="swiper-button-prev">
+                          <i class="fa-solid fa-angle-left"></i>
+                      </div>
+                      <div class="swiper-pagination-two"></div>
+                      <div class="swiper-button-next">
+                          <i class="fa-solid fa-angle-right"></i>
+                      </div>
+                  </div>
               </div>
-            </div>
-            <div class="swiper-container books-wrapper-3 swiper-four">
-              <div class="swiper-wrapper" id="saleprodect"></div>
-            </div>
+              <div class="swiper-container books-wrapper-3 swiper-four">
+                  <div class="swiper-wrapper" id="saleprodect"></div>
+              </div>
           </div>
-        </section>
+      </section>
+      
         <!-- Book Sale End -->
 
         <!-- Feature Product -->
@@ -830,10 +823,8 @@
                 <div>
                   <h2 class="title mb-0">Testimonials</h2>
                   <p class="m-b0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua
-                  </p>
+                   Discover what our customers have to say about their experience with us in purchasing books. We take pride in offering exceptional service to our readers and always strive to enhance their experience.</p>
+
                 </div>
                 <div class="pagination-align style-1">
                   <div class="testimonial-button-prev swiper-button-prev">
@@ -887,8 +878,7 @@
             <div class="section-head text-center">
               <h2 class="title">Latest News</h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua
+                A deep dive into why reading shapes our world and minds.
               </p>
             </div>
             <div class="swiper-container blog-swiper">
@@ -1194,7 +1184,7 @@
               <div class="col-lg-6 col-md-12 text-end">
                 <p>
                   Made with <span class="heart"></span> by
-                  <a href="https://dexignzone.com/">DexignZone</a>
+                  <a>DexignZone</a>
                 </p>
               </div>
             </div>
@@ -1204,9 +1194,9 @@
       </footer>
       <!-- Footer End -->
 
-      <button class="scroltop" type="button">
+      <!-- <button class="scroltop" type="button">
         <i class="fas fa-arrow-up"></i>
-      </button>
+      </button> -->
     </div>
     <!-- JAVASCRIPT FILES ========================================= -->
     <script src="js/jquery.min.js"></script>
@@ -1230,9 +1220,10 @@
     <script src="js/custom.js"></script>
     <script src="/Front-End/All_JavaScript/email.js"></script>
     <!-- CUSTOM JS -->
-    
+    <script src="All_JavaScript/saerach.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="/Front-End/All_JavaScript/book_card.js"></script>
+    <script src="/Front-End/All_JavaScript/serach.js"></script>
 
   </body>
 
