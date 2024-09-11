@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Download Order Details</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert2 -->
+    <style>
+      .btn {
+        background-color: #003366; /* Navy blue */
+        color: white;
+        border: 2px solid black; /* Subtle red border */
+        border-radius: 5px; /* Rounded corners */
+        padding: 15px 30px; /* Larger button size */
+        font-size: 18px; /* Larger text */
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s;
+      }
+      .btn:hover {
+        background-color: #002244; /* Darker navy blue on hover */
+        border-color: black; /* Darker red border on hover */
+      }
+      .btn:focus {
+        outline: none; /* Remove default focus outline */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Download Order Details</h1>
+
+    <button id="downloadPdfBtn" class="btn">Download PDF</button>
+    <button id="downloadExcelBtn" class="btn">Download Excel</button>
+
+    <script>
+      // Retrieve userId from LocalStorage
+      var userId = localStorage.getItem("userId");
+      const pdfUrl = `http://localhost:42480/api/Order?id=${userId}`;
+      const excelUrl = `http://localhost:42480/api/Order/Excel/${userId}`;
+
+      // Check if userId exists
+      if (!userId) {
+        Swal.fire("Error", "User ID not found in LocalStorage.", "error");
+      }
+
+      document
+        .getElementById("downloadPdfBtn")
+        .addEventListener("click", function () {
+          downloadFile(pdfUrl, "PDF");
+        });
+
+      document
+        .getElementById("downloadExcelBtn")
+        .addEventListener("click", function () {
+          downloadFile(excelUrl, "Excel");
+        });
+
+      function downloadFile(url, fileType) {
+        Swal.fire({
+          title: "Do you want to proceed with the download?",
+          text: `A ${fileType} file will be downloaded.`,
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, proceed",
+          cancelButtonText: "Cancel",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = url; // This triggers the file download
+            Swal.fire(
+              "Download started!",
+              `${fileType} file is being downloaded.`,
+              "success"
+            );
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
